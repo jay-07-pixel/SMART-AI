@@ -1,0 +1,4 @@
+# https://docs.netlify.com/configure-builds/overview/
+[build]
+  command = "npm run build"
+  publish = "dist"
