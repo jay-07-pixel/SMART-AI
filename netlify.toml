@@ -1,4 +1,6 @@
 # https://docs.netlify.com/configure-builds/overview/
+# Add VITE_FIREBASE_* in Netlify → Site configuration → Environment variables
+# (same names/values as .env.local). Vite reads them at *build* time — redeploy after saving.
 [build]
   command = "npm run build"
   publish = "dist"

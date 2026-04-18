@@ -19,11 +19,17 @@ export function isFirebaseConfigComplete() {
   return Object.values(c).every((v) => typeof v === "string" && v.length > 0);
 }
 
+/** Shown when VITE_FIREBASE_* are empty after build (e.g. Netlify env not set). */
+export function firebaseConfigHintForUi() {
+  if (import.meta.env.DEV) {
+    return "Copy .env.example to .env.local and set VITE_FIREBASE_*.";
+  }
+  return "Set every VITE_FIREBASE_* variable in Netlify (Site configuration → Environment variables), save, then Deploy → Redeploy site.";
+}
+
 export function getFirebaseApp() {
   if (!isFirebaseConfigComplete()) {
-    throw new Error(
-      "Firebase env vars are missing. Copy .env.example to .env.local and set VITE_FIREBASE_* values."
-    );
+    throw new Error(`Firebase env vars are missing. ${firebaseConfigHintForUi()}`);
   }
   const config = readConfig();
   if (getApps().length) {

@@ -8,7 +8,11 @@ import {
   signOut,
 } from "firebase/auth";
 import { DEMO_STUDENT_CREDENTIALS } from "./firebase/demo-student.js";
-import { getFirebaseAuth, isFirebaseConfigComplete } from "./firebase/client.js";
+import {
+  firebaseConfigHintForUi,
+  getFirebaseAuth,
+  isFirebaseConfigComplete,
+} from "./firebase/client.js";
 import { upsertDemoStudent } from "./firebase/students.js";
 
 function mapLoginError(code) {
@@ -68,7 +72,7 @@ function init() {
 
   if (!isFirebaseConfigComplete()) {
     if (errorEl) {
-      showError(errorEl, "Firebase is not configured. Copy .env.example to .env.local and set VITE_FIREBASE_*.");
+      showError(errorEl, `Firebase is not configured. ${firebaseConfigHintForUi()}`);
     }
     if (submitBtn) submitBtn.disabled = true;
     document.querySelectorAll(".demo-login-actions button").forEach((b) => {

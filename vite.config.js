@@ -55,10 +55,29 @@ export default defineConfig({
       },
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
+        // Multi-page app: do not send all navigations to index.html (vite-plugin-pwa default).
+        navigateFallback: null,
+        // Must use a single "/" after ".com" — a typo like ".com)//" never matches Firebase URLs,
+        // so Storage requests were handled by the catch-all handler and broke behind the SW.
         runtimeCaching: [
           {
-            urlPattern:
-              /^https:\/\/(firebasestorage\.googleapis\.com|firestore\.googleapis\.com|identitytoolkit\.googleapis\.com|securetoken\.googleapis\.com)\//i,
+            urlPattern: /^https:\/\/firebasestorage\.googleapis\.com\/.*/i,
+            handler: "NetworkOnly",
+          },
+          {
+            urlPattern: /^https:\/\/firestore\.googleapis\.com\/.*/i,
+            handler: "NetworkOnly",
+          },
+          {
+            urlPattern: /^https:\/\/identitytoolkit\.googleapis\.com\/.*/i,
+            handler: "NetworkOnly",
+          },
+          {
+            urlPattern: /^https:\/\/securetoken\.googleapis\.com\/.*/i,
+            handler: "NetworkOnly",
+          },
+          {
+            urlPattern: /^https:\/\/www\.googleapis\.com\/.*/i,
             handler: "NetworkOnly",
           },
         ],

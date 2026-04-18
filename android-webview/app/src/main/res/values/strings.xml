@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SmartOps</string>
+    <!-- Your deployed HTTPS URL (Netlify / Firebase Hosting). Trailing slash optional. -->
+    <string name="web_app_url" translatable="false">https://regal-genie-652027.netlify.app/</string>
+</resources>
